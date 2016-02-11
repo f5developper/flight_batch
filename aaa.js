@@ -1,23 +1,19 @@
-if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
+var myBirthDay = function () {
+    process.env.MAIL_URL = "smtp://postmaster%40sandbox27288175dea1468ebe3092572eca7f71.mailgun.org:ghorstworld@smtp.mailgun.org:587";
 
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
-    }
-  });
-
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
-    }
-  });
+    Email.send({
+        from:"silvet2275@gmail.com",
+        to:"mileage0990@gmail.com",
+        subject:"2月22日の",
+        text:"おはようございます"
+    });
 }
 
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-  });
-}
+Meteor.startup(function () {
+});
+
+var cron = new Meteor.Cron({
+    events: {
+        "* * * * *": myBirthDay
+    }
+});
